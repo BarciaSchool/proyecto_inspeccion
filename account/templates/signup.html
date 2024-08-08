@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Iniciar Sesión{% endblock %}
+
+{% block content %}
+<div class="col-12">
+    <div class="column is-half">
+        <h1 class="is-size-3 mt-3">Registro</h1>
+        <p class="is-size-5">Formulario de Registro:</p>
+
+        <form method="post">
+            {% csrf_token %}
+            {% load crispy_forms_tags %} 
+            <div class = 'row container form-group'>
+            <div class="col-md-12">
+                {{ form.username|as_crispy_field }}
+            </div>
+
+            <div class="col-md-6">
+                {{ form.first_name|as_crispy_field }}
+            </div>
+
+            <div class="form-group col-md-6">
+                {{ form.last_name|as_crispy_field }}
+            </div>
+
+            <div class="form-group col-md-6">
+                {{ form.email|as_crispy_field }}
+            </div>
+
+            <div class="form-group col-md-6">
+                {{ form.cedula|as_crispy_field }}
+            </div>
+
+            <div class="form-group col-md-6">
+                {{ form.password1|as_crispy_field }}
+            </div>
+
+            <div class="form-group col-md-6">
+                {{ form.password2|as_crispy_field }}
+            </div>
+            </div>
+            <input type="submit" value="Registrarse" class="btn btn-primary">
+        </form>
+    </div>
+
+    <br>
+
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

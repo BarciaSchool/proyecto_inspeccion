@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="div container mt-3">
+        {% csrf_token %}
+        <div class="container">
+            <div class="list-group">      
+                <a href="{% url 'registro_faltas' %}" class="list-group-item list-group-item-action list-group-item-light">Registrar Faltas</a>
+                <a href="{% url 'registro_estudiante' %}" class="list-group-item list-group-item-action list-group-item-light">Registrar estudiantes</a>
+              </div>    
+        </div>
+        
+        
+</div>
+
+{% endblock %}

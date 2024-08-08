@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="div container mt-3">
+    <form action="" method="POST" class="card p-3 mt-5" autocomplete="off" novalidate>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-4">{{ form.cedula_insp|as_crispy_field }}</div>
+            <div class="col-md-4">{{ form.nombre_insp|as_crispy_field }}</div>
+            <div class="col-md-4">{{ form.apellido_insp|as_crispy_field }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">{{ form.seccion|as_crispy_field }}</div>   
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+    <script>
+        $(document).ready(function() {
+          // Inicializar Select2 en el campo con la clase 'select2'
+          $('#id_cedula_estudiante').select2();
+        });
+      </script>
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+            <div class = 'alert alert-primary alert-dismissible fade show' role = "alert">{{message}}
+                <a href="{% url 'registro_faltas' %}" type = "button" class = "btn btn-close" data-bs-dismiss = "alert" aria-label = "Close"></a>
+            </div>
+        {% endif %}  
+    {% endfor %}
+{% endblock %}

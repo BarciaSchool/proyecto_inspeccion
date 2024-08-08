@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% load crispy_forms_tags %}
+
+  <h1>Detalles del Registro de Faltas</h1>
+  <div class="card border-black p-4">
+    <form method="post" class="" novalidate>
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-md-3">{{ form.cedula_estudiante|as_crispy_field }}</div>
+        <div class="col-md-3">{{ form.fecha|as_crispy_field }}</div>
+        <div class="col-md-3">{{ form.cedula_inspector|as_crispy_field }}</div>
+        <div class="col-md-3 mb-3">
+          <label for="id_seccion" class='form-label requiredField' >Sección:</label>
+          <input type="text" id="id_seccion" class="form-control col-md-3" value="{{ seccion }}" readonly>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">{{ form.periodo|as_crispy_field }}</div>
+        <div class="col-md-3">{{ form.cedula_docente|as_crispy_field }}</div>
+      </div>
+  </div>
+  <br>
+  <div class="card border-black p-4">
+    <div class="row">
+      <div class="col-md-6">
+        {% for checkbox in form.insidencias %}
+          {{ checkbox }}
+          {{ checkbox.label_tag }}
+          <br>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <br>
+  </div>
+
+  <!-- Elimina el botón de guardar -->
+  <!-- <div class="container">
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </div> -->
+
+  <br>
+  <div class="container col-md-12">
+    {% for errors in form.insidencias.errors %}
+      <div class='col-md-12 alert alert-danger alert-dismissible fade show' role="alert">{{ form.insidencias.errors }}
+        <a href="{% url 'registro_faltas' %}" type="button" class="btn btn-close" data-bs-dismiss="alert"
+          aria-label="Close"></a>
+      </div>
+    {% endfor %}
+  </div>
+  </form>
+  {% block scripts %}
+  <script>
+    $(document).ready(function () {
+      $('#id_fecha').datepicker({
+        format: 'yyyy-mm-dd', // Formato de fecha que prefieras
+        autoclose: true,
+        language: 'es'
+      });
+    });
+  </script>
+
+  <script>
+    $('#id_cedula_estudiante').select2()
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var inspectorSelect = document.getElementById('id_cedula_inspector');
+      var seccionInput = document.getElementById('id_seccion');
+      // Realiza una petición AJAX para obtener la edad de la persona seleccionada
+      inspectorSelect.addEventListener('change', function () {
+        var inspID = this.value;
+        fetch(`/obtener_seccion/${inspID}/`)
+          .then(response => response.json())
+          .then(data => {
+            seccionInput.value = data.seccion;
+            seccionInput.style.display = 'block';
+          });
+      });
+    });
+  </script>
+  {% endblock %}
+  {% for message in messages %}
+  {% if message.tags == 'success' %}
+  <div class='container alert alert-primary alert-dismissible fade show' role="alert">{{message}}
+    <a href="{% url 'registro_faltas' %}" type="button" class="btn btn-close" data-bs-dismiss="alert"
+      aria-label="Close"></a>
+  </div>
+  {% endif %}
+  {% endfor %}
+{% endblock %}

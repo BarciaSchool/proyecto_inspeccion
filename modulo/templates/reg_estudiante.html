@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="div container mt-3">
+    <form action="" method="post" class="card p-3 mt-5" autocomplete="off" novalidate>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-4">{{ form.cedula_est|as_crispy_field }}</div>
+            <div class="col-md-4">{{ form.nombre_est|as_crispy_field }}</div>
+            <div class="col-md-4">{{ form.apellido_est|as_crispy_field }}</div>
+        </div>
+        
+        <div class="row">{{ form.curso|as_crispy_field }}</div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+
+
+</div>
+{% for message in messages %}
+        {% if message.tags == 'success' %}
+            <div class = 'alert alert-primary alert-dismissible fade show' role = "alert">{{message}}
+                <a href="{% url 'registro_faltas' %}" type = "button" class = "btn btn-close" data-bs-dismiss = "alert" aria-label = "Close"></a>
+            </div>
+        {% endif %}  
+    {% endfor %}
+{% endblock %}

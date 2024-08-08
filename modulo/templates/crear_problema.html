@@ -1,0 +1,30 @@
+<!-- templates/crear_libro.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Crear Libro</title>
+    <!-- Agrega enlaces a Bootstrap CSS u otros estilos si es necesario -->
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>Crear Problema</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ problema_form.as_p }}
+
+        {{ detalle_form.as_table }}
+    {% for form in detalle_form %}
+      {{ form.nombre }}
+    {% endfor %}
+        <button type="submit" class="btn btn-primary">Guardar Problema</button>
+    </form>
+    <!-- Renderiza los géneros como checkboxes -->
+    
+</div>
+
+<!-- Agrega enlaces a Bootstrap JS y Popper.js si es necesario -->
+</body>
+</html>

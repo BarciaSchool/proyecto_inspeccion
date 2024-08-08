@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Lista de Insidencias</h1>
+  <p>Cédula de Estudiante: {{ registro.cedula_estudiante }}</p>
+  <p>Cédula de Inspector: {{ registro.cedula_inspector }}</p>
+  <p>Fecha: {{ registro.fecha }}</p>
+  <p>Periodo: {{ registro.periodo }}</p>
+  
+  <h2>Detalle de Faltas</h2>
+  <ul>
+    {% for detalle in registro.detalle_faltas.all %}
+      
+      <li>{{ detalle.nombre_color }} </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
