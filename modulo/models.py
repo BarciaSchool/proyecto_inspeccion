@@ -1,9 +1,10 @@
 from django.db import models
-from multiselectfield import MultiSelectField
+
+
 #Modelo de inspectores
 
 SECCION = (
-    ("","Seleccione una Sección"),
+    ("","Seleccione una Sección."),
     ("INICIAL","INICIAL"),
     ("BASICA","BASICA"),
     ("BASICA ELEMENTAL","BASICA ELEMENTAL"),
@@ -52,7 +53,7 @@ class Curso(models.Model):
     paralelo = models.CharField(max_length=50,choices = PARALELO,default = ('A','A'))
     fecha_audit = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return f'{self.curso}  {self.paralelo}'
+        return f'{self.curso} - {self.paralelo}'
     
 #Modelo de Estudiantes
 class Estudiante(models.Model):
@@ -80,12 +81,8 @@ class Periodo(models.Model):
     activo = models.BooleanField(default = True)
     fecha_audit = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return self.cod_periodo
-    
-      
+        return self.cod_periodo  
 class RegistroFaltas(models.Model):
-
-    
     cedula_estudiante = models.ForeignKey(Estudiante, verbose_name=("Estudiantes"), on_delete=models.DO_NOTHING)
     cedula_inspector = models.ForeignKey(Inspector, verbose_name=("Inspectores"), on_delete=models.DO_NOTHING)
     cedula_docente = models.ForeignKey(Docente, verbose_name=("Docentes"), on_delete=models.DO_NOTHING)   
