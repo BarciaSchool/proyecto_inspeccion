@@ -52,7 +52,7 @@ class Curso(models.Model):
     paralelo = models.CharField(max_length=50,choices = PARALELO,default = ('A','A'))
     fecha_audit = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return self.curso
+        return f'{self.curso}  {self.paralelo}'
     
 #Modelo de Estudiantes
 class Estudiante(models.Model):
