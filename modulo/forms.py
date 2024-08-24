@@ -2,7 +2,7 @@ from django import forms
 from django.forms import SelectDateWidget
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, Div,HTML
-from .models import RegistroFaltas, Insidencia,Estudiante,Inspector,Curso,Periodo,Docente
+from .models import RegistroFaltas, Incidencia,Estudiante,Inspector,Curso,Periodo,Docente
 from django.core.validators import RegexValidator
 from django_select2.forms import Select2Widget
 
@@ -176,7 +176,7 @@ class CursoForm(forms.ModelForm):
 class RegistroFaltasForm(forms.ModelForm):
     class Meta:
         model = RegistroFaltas
-        fields = ['cedula_estudiante', 'cedula_inspector','cedula_docente', 'fecha', 'periodo', 'insidencias']
+        fields = ['cedula_estudiante', 'cedula_inspector','cedula_docente', 'fecha', 'periodo', 'incidencias']
         
     fecha = forms.DateField(
         widget=forms.DateInput(attrs={'readonly': 'readonly'}),
@@ -215,9 +215,9 @@ class RegistroFaltasForm(forms.ModelForm):
         required=False
     )
     
-    insidencias = forms.ModelMultipleChoiceField(
+    incidencias = forms.ModelMultipleChoiceField(
         label='Incidencias',
-        queryset=Insidencia.objects.filter(activo=True),
+        queryset=Incidencia.objects.filter(activo=True),
         error_messages={'required': 'Por favor, selecciona al menos una incidencia.'},
         widget=forms.CheckboxSelectMultiple
     )
@@ -261,9 +261,9 @@ class RegistroFaltasForm(forms.ModelForm):
         # Si estamos en el modo de edición y hay una instancia actual
         if instancia_actual and instancia_actual.pk:
             # Obtener las instancias asociadas a través del ManyToManyField
-            insidencias_asociadas = instancia_actual.insidencias.all()
-            # Preseleccionar las opciones en el campo insidencias
-            self.fields['insidencias'].initial = list(insidencias_asociadas.values_list('id', flat=True))
+            incidencias_asociadas = instancia_actual.incidencias.all()
+            # Preseleccionar las opciones en el campo incidencias
+            self.fields['incidencias'].initial = list(incidencias_asociadas.values_list('id', flat=True))
 
     
         

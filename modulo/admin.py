@@ -1,13 +1,13 @@
 from django import forms
 from django.contrib import admin
-from .models import Insidencia, RegistroFaltas, Estudiante, Curso, Inspector, RegistroFaltasIncidencia,Periodo,Docente
+from .models import Incidencia, RegistroFaltas, Estudiante, Curso, Inspector, RegistroFaltasIncidencia,Periodo,Docente
 
 
 class RegistroFaltasIncidenciaInline(admin.TabularInline):
     model = RegistroFaltasIncidencia
     extra = 1 
 
-@admin.register(Insidencia)
+@admin.register(Incidencia)
 class InsidenciaAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'activo')
 

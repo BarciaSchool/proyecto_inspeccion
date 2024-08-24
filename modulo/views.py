@@ -87,10 +87,10 @@ def editar_registro_faltas(request, id_registro):
             registro_faltas.save()
 
             # Limpiar las asociaciones anteriores
-            registro_faltas.insidencias.clear()
+            registro_faltas.incidencia.clear()
 
             # Obtener las nuevas asociaciones desde el formulario
-            incidencias_seleccionadas = form.cleaned_data['insidencias']
+            incidencias_seleccionadas = form.cleaned_data['incidencia']
             incidencias_ids = [incidencia.id for incidencia in incidencias_seleccionadas]
             print(incidencias_ids)
             
